@@ -1,9 +1,11 @@
 import basicSetting from '../basicScene.js'
+import ambientLight from './ambientLight.js'
 import directionalLight from './directionalLight.js'
 
 const objects = []
 
 // create objects
+objects.push(ambientLight)
 objects.push(directionalLight)
 
 export const addLights = () => {

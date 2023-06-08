@@ -38,14 +38,21 @@ window.addEventListener('resize', () =>
 {
     // Update sizes
     sizes.width = window.innerWidth
-    sizes.height = window.innerHeight + 100 // to enable the scroll animation of gsap
-
+    sizes.height = window.innerHeight
     // Update camera
-    selectedCamera.aspect = sizes.width / sizes.height
+    if (selectedCamera?.isOrthographicCamera) {
+        selectedCamera.left = sizes.width / -2
+        selectedCamera.right = sizes.width / 2
+        selectedCamera.top = sizes.height / 2
+        selectedCamera.bottom = sizes.height / -2
+    } else {
+        selectedCamera.aspect = sizes.width / sizes.height
+    }
     selectedCamera.updateProjectionMatrix()
 
     // Update renderer
-    renderer.setSize(sizes.width, sizes.height)
+    renderer.setSize(sizes.width, sizes.height + 100) // to enable the scroll animation of gsap
+
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 })
 

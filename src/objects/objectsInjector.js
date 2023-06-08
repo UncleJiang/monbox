@@ -1,6 +1,11 @@
 import * as THREE from 'three'
 
 import basicSetting from '../basicScene.js'
+import containerBox from './customObj/containerBox.js'
+import contentObjs from './customObj/contentObjs.js'
+import testobj from './customObj/testobj.js'
+import testobj2 from './customObj/testobj2.js'
+import testobj3 from './customObj/testobj3.js'
 // import SphereObj from './basicMeshObj/SphereObj.js'
 // import sky from './advancedMeshObj/sky.js'
 // import timeGroup from './customObj/timeGroup/index.js'
@@ -21,6 +26,13 @@ const objects = []
  * `
  */
 
+objects.push(containerBox)
+objects.push(contentObjs)
+objects.push(testobj)
+objects.push(testobj2)
+objects.push(testobj3)
+
+
 
 export const addObjects = () => {
     const scene = basicSetting.scene
@@ -36,6 +48,6 @@ export const objectsOnChange = () => {
     const scene = basicSetting.scene
 
     for (let obj of objects) {
-        obj.onMeshChange?.(scene)
+        obj?.onMeshChange?.(scene)
     }
 }

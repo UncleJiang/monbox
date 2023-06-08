@@ -4,11 +4,13 @@ import basicSetting from '../basicScene.js'
 import trackCamera from './trackCamera.js'
 import mainCamera from './mainCamera.js'
 import { cameraArr, changeCamera } from './cameraHandler.js'
+import orthoCamera from './orthoCamera.js'
 
 
 const { scene } = basicSetting
 
 cameraArr.push(trackCamera)
+cameraArr.push(orthoCamera)
 
 const cameraNameArr = cameraArr.map((item) => item.name)
 

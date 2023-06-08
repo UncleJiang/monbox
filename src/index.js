@@ -19,6 +19,7 @@ const {
     scene,
     renderer,
     mesh,
+    stats,
 } = basicSetting
 
 scene.add(transformControl)
@@ -28,8 +29,11 @@ console.log('index scene: ', scene)
 const anim = () => {
     window.requestAnimationFrame(anim)
 
+    stats.update()
+
+
     renderer.render(scene, getCamera())
-    getCamera()?.bindedControl.update()
+    // getCamera()?.bindedControl.update() // 不需要持续update
 
     mesh.rotateX(0.01)
     mesh.rotateY(0.01)
