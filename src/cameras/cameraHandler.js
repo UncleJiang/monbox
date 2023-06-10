@@ -1,11 +1,16 @@
 import mainCamera from './mainCamera.js'
 import basicSetting from '../basicScene.js'
 import commonParams from '../common.js'
+import orthoCamera from './orthoCamera.js'
 
 export const cameraArr = []
+cameraArr.push(orthoCamera)
 cameraArr.push(mainCamera)
 
-let selectedCamera = mainCamera
+// let selectedCamera = mainCamera
+// temp
+let selectedCamera = orthoCamera
+
 
 // Only the camera with a not-empty name is valid.
 export const changeCamera = (name) => {

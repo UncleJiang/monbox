@@ -1,3 +1,5 @@
+import * as THREE from 'three'
+
 import './style.css'
 
 import basicSetting from './basicScene.js'
@@ -25,6 +27,9 @@ const {
 scene.add(transformControl)
 
 console.log('index scene: ', scene)
+
+const clock = new THREE.Clock()
+let currentTime = 0
 // animation
 const anim = () => {
     window.requestAnimationFrame(anim)
@@ -38,7 +43,11 @@ const anim = () => {
     mesh.rotateX(0.01)
     mesh.rotateY(0.01)
 
-    objectsOnChange()
+    const elapsedTime = clock.getElapsedTime()
+    const deltaTime = elapsedTime - currentTime
+    currentTime = elapsedTime
+
+    objectsOnChange(elapsedTime, deltaTime)
     lightsOnChange()
 }
 

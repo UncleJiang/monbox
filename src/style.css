@@ -6,7 +6,9 @@
 
 html
 {
-    background: #af5dd8;
+    /* background: #af5dd8; */
+    background-image: url('/static/images/background.jpg');
+    background-size: cover;
 }
 
 .webgl

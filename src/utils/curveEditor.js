@@ -11,8 +11,6 @@ const {
     scene,
     renderer,
 } = basicSetting
-const camera = getCamera('mainCamera')
-
 
 class CurveEditor {
 
@@ -246,7 +244,7 @@ class CurveEditor {
         for (let object of this.splineHelperObjects) {
             object.visible = this.params.visible
         }
-        renderer.render( scene, camera )
+        renderer.render( scene, getCamera('mainCamera') )
     }
 
     getCurve() {

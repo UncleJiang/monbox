@@ -139,7 +139,7 @@ const contentObjs = () => {
                 updateAllMaterials(gltf.scene, texture)
                 perfume1 = gltf.scene
                 // mesh.add(perfume1)
-                perfume1.position.y -= 3
+                perfume1.position.y -= 3.4
                 testobj.mesh.add(perfume1)
 
                 if (perfume1?.children && perfume1.children.length !== 0) {

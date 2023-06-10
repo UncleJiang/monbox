@@ -20,11 +20,14 @@ const addCamera = () => {
     }
 }
 
-let params = { name: mainCamera.name }
+// let params = { name: mainCamera.name }
+let params = { name: orthoCamera.name }
 
 const folder = gui.addFolder('Camera Selector')
 folder.add(params, 'name', cameraNameArr)
-    .onChange(changeCamera)
+    .onChange(() => {
+        changeCamera(params.name)
+    })
 
 
 export default addCamera

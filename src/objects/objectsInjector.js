@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 
 import basicSetting from '../basicScene.js'
+import boxOutLayer from './customObj/boxOutLayer.js'
 import containerBox from './customObj/containerBox.js'
 import contentObjs from './customObj/contentObjs.js'
 import testobj from './customObj/testobj.js'
@@ -31,6 +32,7 @@ objects.push(contentObjs)
 objects.push(testobj)
 objects.push(testobj2)
 objects.push(testobj3)
+objects.push(boxOutLayer)
 
 
 
@@ -44,10 +46,10 @@ export const addObjects = () => {
     }
 }
 
-export const objectsOnChange = () => {
+export const objectsOnChange = (elapsedTime, deltaTime) => {
     const scene = basicSetting.scene
 
     for (let obj of objects) {
-        obj?.onMeshChange?.(scene)
+        obj?.onMeshChange?.(elapsedTime, deltaTime, scene)
     }
 }

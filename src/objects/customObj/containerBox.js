@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import basicSetting from '../../basicScene'
 import getCamera from '../../cameras/cameraHandler'
+import { textureLoader } from '../../textures/textureHandler'
 
 
 const containerBox = () => {
@@ -9,8 +10,9 @@ const containerBox = () => {
 
     const sideGeometry = new THREE.PlaneGeometry(10, 10)
 
-    const sideMtl1 = new THREE.MeshBasicMaterial({
-        color: '#d77',
+    const sideMtl1 = new THREE.MeshBasicMaterial({ // perfume1 pink case
+        color: '#fdd',
+        map: textureLoader.load('/images/pinkBg.jpg'),
         // transparent: true,
         // opacity: 0.4,
         stencilWrite: true,
@@ -22,8 +24,9 @@ const containerBox = () => {
 
     })
 
-    const sideMtl2 = new THREE.MeshBasicMaterial({
-        color: '#7d7',
+    const sideMtl2 = new THREE.MeshBasicMaterial({ // perfume2 blue case
+        // color: '#7d7',
+        map: textureLoader.load('/images/caustics.jpeg'),
         // transparent: true,
         // opacity: 0.4,
         stencilWrite: true,
@@ -34,9 +37,76 @@ const containerBox = () => {
         stencilZPass: THREE.ReplaceStencilOp,
 
     })
+    const uniformParams = {
+        uTime: { value: 0.0 },
+    }
 
-    const sideMtl3 = new THREE.MeshBasicMaterial({
-        color: '#77d',
+    const commonText = `
+    #include <common>
+
+    uniform float uTime;
+    `
+
+    const causticsMapText = `
+    #include <map_fragment>
+    #define TAU 6.28318530718
+    #define MAX_ITER 5
+    // #define SHOW_TILING 1
+
+
+
+    float time = uTime * .5+23.0;
+    
+    #ifdef SHOW_TILING
+        vec2 p = mod(vUv*TAU*2.0, TAU)-250.0;
+    #else
+        vec2 p = mod(vUv*TAU, TAU)-250.0;
+    #endif
+        vec2 i = vec2(p);
+        float c = 1.0;
+        float inten = .005;
+
+        for (int n = 0; n < MAX_ITER; n++) 
+        {
+            float t = time * (1.0 - (3.5 / float(n+1)));
+            i = p + vec2(cos(t - i.x) + sin(t + i.y), sin(t - i.y) + cos(t + i.x));
+            c += 1.0/length(vec2(p.x / (sin(i.x+t)/inten),p.y / (cos(i.y+t)/inten)));
+        }
+        c /= float(MAX_ITER);
+        c = 1.17-pow(c, 1.4);
+        vec3 color = vec3(pow(abs(c), 8.0));
+        color = clamp(color + vec3(0.0, 0.35, 0.5), 0.0, 1.0);
+
+        #ifdef SHOW_TILING
+            // Flash tile borders...
+            vec2 pixel = 2.0 / vec2(10.0, 10.0);
+            vec2 tempUv = vUv * 2.0;
+            // vUv *= 2.0;
+            float f = floor(mod(uTime*.5, 2.0)); 	// Flash value.
+            vec2 first = step(pixel, tempUv) * f;		   	// Rule out first screen pixels and flash.
+            tempUv  = step(fract(tempUv), pixel);				// Add one line of pixels per tile.
+            color = mix(color, vec3(1.0, 1.0, 0.0), (tempUv.x + tempUv.y) * first.x * first.y); // Yellow line
+        #endif
+        
+        diffuseColor = vec4(color, 1.0);
+
+        
+    
+    `
+
+    sideMtl2.onBeforeCompile = (shader) => {
+        // shader.uniforms.uyMultiplier = uniformParams.uyMultiplier
+        // shader.uniforms.uyOffset = uniformParams.uyOffset
+        shader.uniforms.uTime = uniformParams.uTime
+
+        console.log('sideMtl2 shader: ', shader)
+        shader.fragmentShader = shader.fragmentShader.replace('#include <common>', commonText)
+        shader.fragmentShader = shader.fragmentShader.replace('#include <map_fragment>', causticsMapText)
+    }
+
+    const sideMtl3 = new THREE.MeshBasicMaterial({ // perfume3 amber case
+        // color: '#77d',
+        map: textureLoader.load('/images/glitterBg2.jpeg'),
         // transparent: true,
         // opacity: 0.4,
         stencilWrite: true,
@@ -71,6 +141,7 @@ const containerBox = () => {
     backSide.position.set(0, 0, -5)
 
     topSide.rotateX(Math.PI * 0.5)
+    topSide.rotateZ(Math.PI)
     topSide.position.set(0, 5, 0)
 
     bottomSide.rotateX(-Math.PI * 0.5)
@@ -90,9 +161,16 @@ const containerBox = () => {
 
     // frontSide.renderOrder = 30
     // mesh.renderOrder = 40
+
+    const onMeshChange = (elapsedTime, deltaTime) => {
+        // const elapsedTime = clock.getElapsedTime()
+        uniformParams.uTime.value = elapsedTime * 0.8
+        sideMtl2.needsUpdate = true
+    }
+
     return {
         mesh,
-        onMeshChange: null,
+        onMeshChange: onMeshChange,
     }
 }
 
