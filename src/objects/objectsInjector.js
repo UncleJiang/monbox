@@ -4,6 +4,7 @@ import basicSetting from '../basicScene.js'
 import boxOutLayer from './customObj/boxOutLayer.js'
 import containerBox from './customObj/containerBox.js'
 import contentObjs from './customObj/contentObjs.js'
+// import handlerGroup from './customObj/HandlerGroup.js'
 import testobj from './customObj/testobj.js'
 import testobj2 from './customObj/testobj2.js'
 import testobj3 from './customObj/testobj3.js'
@@ -33,6 +34,8 @@ objects.push(testobj)
 objects.push(testobj2)
 objects.push(testobj3)
 objects.push(boxOutLayer)
+
+// objects.push(handlerGroup)
 
 
 

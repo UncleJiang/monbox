@@ -145,6 +145,7 @@ const containerBox = () => {
     topSide.position.set(0, 5, 0)
 
     bottomSide.rotateX(-Math.PI * 0.5)
+    bottomSide.rotateZ(Math.PI * 0.5)
     bottomSide.position.set(0, -5, 0)
 
     rightSide.rotateY(-Math.PI * 0.5)

@@ -26,6 +26,7 @@ const orthoCamera = () => {
     camera.position.z = 40.7
     const targetPos = new THREE.Vector3(params.targetPosX, params.targetPosY, params.targetPosZ)
     camera.lookAt(targetPos)
+    camera.zoom = 30 // 21
 
     // temp pick case
     // camera.applyMatrix4(new THREE.Matrix4(

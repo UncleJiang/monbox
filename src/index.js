@@ -9,6 +9,7 @@ import transformControl from './utils/transformControl.js'
 import commonPanel from './commonPanel.js'
 import addCamera from './cameras/camerasInjector.js'
 import getCamera from './cameras/cameraHandler'
+import switchCase from './objects/customObj/switchCase'
 
 commonPanel()
 
@@ -25,6 +26,9 @@ const {
 } = basicSetting
 
 scene.add(transformControl)
+
+
+const onCaseChange = switchCase().onMeshChange
 
 console.log('index scene: ', scene)
 
@@ -49,6 +53,9 @@ const anim = () => {
 
     objectsOnChange(elapsedTime, deltaTime)
     lightsOnChange()
+
+    onCaseChange()
+
 }
 
 anim()

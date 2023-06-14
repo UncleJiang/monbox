@@ -81,6 +81,7 @@ const contentObjs = () => {
 
         // perfume2.position.y -= 3
         testobj2.mesh.add(perfume2)
+
         // basicSetting.scene.add(perfume2)
 
 
@@ -116,7 +117,6 @@ const contentObjs = () => {
         // perfume3.position.y -= 3
         testobj3.mesh.add(perfume3)
 
-
     }
 
     new RGBELoader()
@@ -141,6 +141,7 @@ const contentObjs = () => {
                 // mesh.add(perfume1)
                 perfume1.position.y -= 3.4
                 testobj.mesh.add(perfume1)
+                perfume1.name = 'perfume'
 
                 if (perfume1?.children && perfume1.children.length !== 0) {
                     addOtherPerfume(perfume1)
