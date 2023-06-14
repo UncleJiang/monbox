@@ -1,3 +1,4 @@
+import gsap from "gsap"
 import { Vector3 } from "three"
 import basicSetting from "../../basicScene"
 import getCamera from "../../cameras/cameraHandler"
@@ -9,7 +10,9 @@ import testobj from "./testobj"
 import testobj2 from "./testobj2"
 import testobj3 from "./testobj3"
 
+import { CustomEase } from "gsap/CustomEase"
 
+gsap.registerPlugin(CustomEase)
 
 const switchCase = () => {
 
@@ -61,17 +64,37 @@ const switchCase = () => {
         },
     }
     const camTarget = new Vector3(0, 0, 0)
+
+    const camAnim = (srcPos, dstPos) => {
+        gsap.to(srcPos, {
+            x: dstPos.x,
+            y: dstPos.y,
+            z: dstPos.z,
+            duration: 1.5,
+            delay: 0.5,
+            // ease: 'back', //'bounce', // 'power2.inOut',
+            ease: CustomEase.create("custom", "M0,0 C0,0 0.05,0.228 0.09,0.373 0.12,0.484 0.139,0.547 0.18,0.654 0.211,0.737 0.235,0.785 0.275,0.864 0.291,0.896 0.303,0.915 0.325,0.944 0.344,0.97 0.356,0.989 0.38,1.009 0.413,1.039 0.472,1.08 0.516,1.08 0.588,1.08 0.658,0.995 0.692,0.986 0.78,0.961 0.822,1.035 0.91,1.011 0.943,1.002 1,1 1,1 "),
+            onUpdate: () => {
+                // console.log('cam pos: ',srcPos, dstPos)
+                orthoCamera.lookAt(camTarget)
+                orthoCamera.updateProjectionMatrix()
+            },
+            onComplete: () => {
+                // console.log('gsap  pos complete')
+            }
+        })
+    }
+
     let perfume
     folder.add(params, 'selectedCase', options).onChange(() => {
         const selectedCaseConfig = config[params.selectedCase]
         currHandlerGroup.visible = false
         currHandlerGroup = selectedCaseConfig.handlerGroup
         currHandlerGroup.visible = true
-        transformControl.attach(currHandlerGroup)
+        // transformControl.attach(currHandlerGroup)
         perfume = selectedCaseConfig.perfumeObj.mesh.getObjectByName('perfume')
 
-        orthoCamera.position.copy(selectedCaseConfig.camPosition)
-        orthoCamera.lookAt(camTarget)
+        camAnim(orthoCamera.position, selectedCaseConfig.camPosition)
         renderer.render(scene, getCamera())
     })
 

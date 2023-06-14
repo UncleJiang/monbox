@@ -14,7 +14,7 @@ const directionalLight = () => {
         pointLightCoor: { x: 0, y: 10, z: 0 },
         pointLightColor: { string: '#ff9000' },
         pointLightIntensity: 0.5,
-        showLightHelper: true,
+        showLightHelper: false,
     }
 
     lightFolder.add(lightParams.directionalLightCoor, 'x', -70, 70, 1).name('directionalLight_x')

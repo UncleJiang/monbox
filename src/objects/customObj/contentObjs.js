@@ -1,7 +1,9 @@
+import gsap from 'gsap'
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader'
 import basicSetting from '../../basicScene'
+import orthoCamera from '../../cameras/orthoCamera'
 import testobj from './testobj'
 import testobj2 from './testobj2'
 import testobj3 from './testobj3'
@@ -119,6 +121,24 @@ const contentObjs = () => {
 
     }
 
+
+    const camZoomAnim = () => {
+
+        gsap.to(orthoCamera, {
+            zoom: 30,
+            duration: 1.5,
+            delay: 0.5,
+            ease: 'power2.inOut',
+            onUpdate: () => {
+                // console.log('cam zoom: ', orthoCamera.zoom)
+                orthoCamera.updateProjectionMatrix()
+            },
+            onComplete: () => {
+                // console.log('gsap complete')
+            }
+        })
+    }
+
     new RGBELoader()
         .setPath('cubemaps/')
         .load('thatch_chapel_1k.hdr', function (texture) {
@@ -146,6 +166,7 @@ const contentObjs = () => {
                 if (perfume1?.children && perfume1.children.length !== 0) {
                     addOtherPerfume(perfume1)
                     
+                    camZoomAnim()
 
                 }
                 
