@@ -10,8 +10,12 @@ import commonPanel from './commonPanel.js'
 import addCamera from './cameras/camerasInjector.js'
 import getCamera from './cameras/cameraHandler'
 import switchCase from './objects/customObj/switchCase'
+import eventHandler from './eventHandler'
+import { enableHelper } from './utils/coorHelper'
 
 commonPanel()
+eventHandler()
+// enableHelper()
 
 addCamera()
 addObjects()
@@ -25,7 +29,7 @@ const {
     stats,
 } = basicSetting
 
-scene.add(transformControl)
+// scene.add(transformControl)
 
 
 const onCaseChange = switchCase().onMeshChange

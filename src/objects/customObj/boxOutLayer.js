@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { textureLoader } from '../../textures/textureHandler'
 
-export const layerTexture = textureLoader.load('https://makio135.com/matcaps/64/3B3C3F_DAD9D5_929290_ABACA8-64px.png') // 金属质感
+export const layerTexture = textureLoader.load('/images/metalCap.png') // 金属质感
 
 const boxOutLayer = () => {
 

@@ -1,27 +1,93 @@
-*
-{
-    margin: 0;
-    padding: 0;
-}
-
-html
-{
+html {
     /* background: #af5dd8; */
     background-image: url('/static/images/bg6.jpeg');
     background-size: cover;
+    margin: 0;
+    padding: 0;
+    cursor: none;
 }
 
-.webgl
-{
+.webgl {
     position: fixed;
     top: 0;
     left: 0;
     outline: none;
+    margin: 0;
+    padding: 0;
 }
 
-#btn
-{
+.cursor {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    /* background-color: rgba(141, 173, 209, 0.4); */
+    background-color: rgba(255, 255, 255, 0.4);
+    position: fixed;
+    left: -200px;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+#btn {
     position: fixed;
     left: 0;
     top: 0;
 }
+
+#container {
+    position: fixed;
+    z-index: 10;
+    /* left: 10px; */
+    width: 100vw;
+}
+
+#section-l {
+    box-sizing: border-box;
+
+    width: 30vw;
+    float: left;
+
+    color: #fcfcfc;
+    padding: 20px;
+    padding-left: 10px;
+}
+
+#section-r {
+    box-sizing: border-box;
+
+    width: 30vw;
+    float: right;
+
+    color: #fcfcfc;
+    padding-top: 30vh;
+    padding-right: 20px;
+    background-color: transparent;
+    pointer-events: all;
+}
+
+#marker-group {
+    margin-top: 80px;
+    /* padding-top: 20px;
+    padding-bottom: 20px; */
+    width: 12vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.icon .main-color {
+    fill: #777777
+}
+
+.icon.blue > .main-color {
+    fill: #4ea4f7
+}
+
+.line {
+    width: 30px;
+    height: 1.5px;
+    /* border-radius: 20%; */
+    background-color: #777;
+}
+
+

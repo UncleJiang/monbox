@@ -1,16 +1,17 @@
 import gsap from "gsap"
+import * as THREE from 'three'
 import { Vector3 } from "three"
 import basicSetting from "../../basicScene"
 import getCamera from "../../cameras/cameraHandler"
 import orthoCamera from "../../cameras/orthoCamera"
 import gui from "../../utils/gui"
-import transformControl from "../../utils/transformControl"
-import HandlerGroup from "./HandlerGroup"
+import HandleGroup from "./HandleGroup"
 import testobj from "./testobj"
 import testobj2 from "./testobj2"
 import testobj3 from "./testobj3"
 
 import { CustomEase } from "gsap/CustomEase"
+import productText from "./productText"
 
 gsap.registerPlugin(CustomEase)
 
@@ -18,49 +19,52 @@ const switchCase = () => {
 
     const { scene, renderer } = basicSetting
 
-    const handlerGroup1 = new HandlerGroup('handlerGroup-April').mesh
-    const handlerGroup2 = new HandlerGroup('handlerGroup-Ocean').mesh
-    const handlerGroup3 = new HandlerGroup('handlerGroup-Amber').mesh
-    handlerGroup1.visible = false
-    handlerGroup2.visible = false
-    handlerGroup3.visible = false
+    const { mesh: handleGroup1, setVerticalRotateAxis: setGroup1Axis} = new HandleGroup('handleGroup-April')
+    const { mesh: handleGroup2, setVerticalRotateAxis: setGroup2Axis} = new HandleGroup('handleGroup-Ocean')
+    const { mesh: handleGroup3, setVerticalRotateAxis: setGroup3Axis} = new HandleGroup('handleGroup-Amber')
+    handleGroup1.visible = false
+    handleGroup2.visible = false
+    handleGroup3.visible = false
 
-    handlerGroup1.rotateZ(- Math.PI * 0.9)
-    handlerGroup1.rotateX(Math.PI * 0.2)
+    // position each group
+    handleGroup1.rotateZ(- Math.PI * 0.9)
+    handleGroup1.rotateX(Math.PI * 0.2)
 
-    handlerGroup2.rotateZ(- Math.PI * 0.25)
+    handleGroup2.rotateZ(- Math.PI * 0.25)
 
-    handlerGroup3.rotateZ(Math.PI * 0.44)
+    handleGroup3.rotateZ(Math.PI * 0.44)
 
-    scene.add(handlerGroup1)
-    scene.add(handlerGroup2)
-    scene.add(handlerGroup3)
+    scene.add(handleGroup1)
+    scene.add(handleGroup2)
+    scene.add(handleGroup3)
 
-    let currHandlerGroup = handlerGroup1
+    // set vertical moving based axis for each group
+    setGroup1Axis()
+    setGroup2Axis()
+    setGroup3Axis()
 
 
+    let currHandleGroup = handleGroup1
 
-    const folder = gui.addFolder('Case selector')
-    const options = ['April', 'Ocean', 'Amber']
-    const params = {
-        selectedCase: 'April',
-    }
     
     const config = {
         April: {
-            handlerGroup: handlerGroup1,
+            handleGroup: handleGroup1,
             camPosition: new Vector3(-13, -23, -36.5),
             perfumeObj: testobj,
+            text: productText.April,
         },
         Ocean: {
-            handlerGroup: handlerGroup2,
+            handleGroup: handleGroup2,
             camPosition: new Vector3(-32.8, 8.7, 30),
             perfumeObj: testobj2,
+            text: productText.Ocean,
         },
         Amber: {
-            handlerGroup: handlerGroup3,
+            handleGroup: handleGroup3,
             camPosition: new Vector3(42.7, 11.2, 9.6),
             perfumeObj: testobj3,
+            text: productText.Amber,
         },
     }
     const camTarget = new Vector3(0, 0, 0)
@@ -85,25 +89,98 @@ const switchCase = () => {
         })
     }
 
-    let perfume
-    folder.add(params, 'selectedCase', options).onChange(() => {
-        const selectedCaseConfig = config[params.selectedCase]
-        currHandlerGroup.visible = false
-        currHandlerGroup = selectedCaseConfig.handlerGroup
-        currHandlerGroup.visible = true
-        // transformControl.attach(currHandlerGroup)
-        perfume = selectedCaseConfig.perfumeObj.mesh.getObjectByName('perfume')
+    const subTitle = document.getElementById('subTitle')
+    const description = document.getElementById('description')
+    const title = document.getElementById('title')
+    const scent = document.getElementById('scent')
+    const changeText = (text) => {
+        subTitle && (subTitle.innerText = text.subTitle)
+        description && (description.innerText = text.description)
+        title && (title.innerText = text.title)
+        scent && (scent.innerText = text.scent)
+    }
+
+
+    const resetRotation = (perfumes) => {
+        // reset perfume and handle's rotation
+        perfumes.forEach((perfume) => {
+            console.log('reset perfume up: ', perfume.up, perfume)
+            // perfume.up = THREE.Object3D.DEFAULT_UP // doesn't work, .up is always (0,1,0)
+            perfume.lookAt(new Vector3(0, 0, 50)) // (-26, -8, 32)
+            
+        })
+        
+        // the setting order cannot be disrupted.
+        handleGroup1.lookAt(new Vector3(0,0,0))
+        handleGroup2.lookAt(new Vector3(0,0,0))
+        handleGroup3.lookAt(new Vector3(0,0,0))
+
+        const handle = handleGroup1.getObjectByName('handle')
+        handle.lookAt(new Vector3(0, 0, 0))
+        handle.rotateZ(- Math.PI * 0.5)
+
+        const handle2 = handleGroup2.getObjectByName('handle')
+        handle2.lookAt(new Vector3(0, 0, 0))
+        handle2.rotateZ(- Math.PI * 0.5)
+
+        const handle3 = handleGroup3.getObjectByName('handle')
+        handle3.lookAt(new Vector3(0, 0, 0))
+        handle3.rotateZ(- Math.PI * 0.5)
+
+
+        handleGroup1.rotateZ(- Math.PI * 0.9)
+        handleGroup1.rotateX(Math.PI * 0.2)
+
+        handleGroup2.rotateZ(- Math.PI * 0.25)
+
+        handleGroup3.rotateZ(Math.PI * 0.44)
+
+    }
+
+
+    const caseOnchange = (selectedCase) => {
+        const selectedCaseConfig = config[selectedCase]
+        currHandleGroup.visible = false
+        currHandleGroup = selectedCaseConfig.handleGroup
+        currHandleGroup.visible = true
+        // transformControl.attach(currHandleGroup)
+        // perfume = selectedCaseConfig.perfumeObj.mesh.getObjectByName('perfume')
+        const perfumes = []
+        perfumes.push(testobj.mesh.getObjectByName('perfume'))
+        perfumes.push(testobj2.mesh.getObjectByName('perfume'))
+        perfumes.push(testobj3.mesh.getObjectByName('perfume'))
+        currHandleGroup.perfumes = perfumes
+
+        resetRotation(perfumes)
+
+
+        // TODO: doesn't work, handle's up is alway the default, never change
+        // currHandleGroup.getObjectByName('handle').up = THREE.Object3D.DEFAULT_UP
+        console.log('handle r: ', currHandleGroup.getObjectByName('handle'))
 
         camAnim(orthoCamera.position, selectedCaseConfig.camPosition)
+        changeText(selectedCaseConfig.text)
         renderer.render(scene, getCamera())
+    }
+
+    const markerIcons = document.querySelectorAll('#marker-group svg')
+    let currSectionId = 'April'
+    markerIcons.forEach((icon) => {
+        icon.addEventListener('click', () => {
+            if (currSectionId !== icon.id) {
+                markerIcons.forEach((icon)=> {
+                    icon.classList.remove('blue')
+                })
+                icon.classList.add('blue')
+                currSectionId = icon.id
+
+                caseOnchange(currSectionId)
+            }
+        })
     })
 
-    const onMeshChange = () => {
-        if (perfume) {
-            // just trigger(/render) once when move the handler, not rendered every frame
-            // perfume.applyQuaternion(currHandlerGroup.quaternion)
-        }
-    }
+    const onMeshChange = () => {}
+
     return { onMeshChange }
 }
 

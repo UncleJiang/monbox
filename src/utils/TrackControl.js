@@ -32,7 +32,7 @@ class TrackControl {
                 start: 'top top',
                 end: 'bottom bottom-=10', // 增多每像素移动所花费的step
                 scrub: 1,
-                markers: true,
+                // markers: true,
             },
             onUpdate: () => {
                 console.log('===gsap=scroll=target======', target)

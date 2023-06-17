@@ -32,7 +32,7 @@ mesh.visible = false
 
 // handle full screen
 const btn = document.getElementById('btn')
-btn.addEventListener('click', () => {
+btn && btn.addEventListener('click', () => {
     if (!document.fullscreenElement) {
         canvas.requestFullscreen()
     }
