@@ -1,6 +1,6 @@
-# web3d-plate
+# Monbox
 
-Boilerplate for Web3D project.
+
 
 ## launch the project
 `npm install`
