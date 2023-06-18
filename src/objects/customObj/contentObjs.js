@@ -142,7 +142,7 @@ const contentObjs = () => {
     }
 
     new RGBELoader()
-        .setPath('cubemaps/')
+        .setPath('./cubemaps/')
         .load('thatch_chapel_1k.hdr', function (texture) {
 
             texture.mapping = THREE.EquirectangularReflectionMapping
@@ -154,7 +154,7 @@ const contentObjs = () => {
             // model
 
             const loader = new GLTFLoader(manager)
-            loader.load( 'models/perfume_bottle_2.glb', function ( gltf ) {
+            loader.load( './models/perfume_bottle_2.glb', function ( gltf ) {
 
                 console.log('gltf scene:', gltf.scene)
                 gltf.scene.scale.set(50, 50, 50)

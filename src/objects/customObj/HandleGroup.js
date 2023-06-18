@@ -50,7 +50,7 @@ function HandleGroup (name) {
     const maskGeometry = new THREE.TorusGeometry(12.5, 0.5, 4, 16, Math.PI * 0.4)
     const maskMaterial = new THREE.MeshMatcapMaterial({
         // color: '#f77',
-        matcap: textureLoader.load('/images/blueCap.png'),
+        matcap: textureLoader.load('./images/blueCap.png'),
         stencilWrite: true,
         stencilRef: 6,
         stencilFunc: THREE.AlwaysStencilFunc,
@@ -90,8 +90,8 @@ function HandleGroup (name) {
     const handleGeometry = new THREE.TorusGeometry(12.5, 0.8, 4, 16, Math.PI * 0.01)
 
     const handleMaterial = new THREE.MeshMatcapMaterial({
-        // map: textureLoader.load('/images/handleIndicator.jpg'), //分辨率不高，效果不好
-        // matcap: textureLoader.load('/images/blueCap.png'),
+        // map: textureLoader.load('./images/handleIndicator.jpg'), //分辨率不高，效果不好
+        // matcap: textureLoader.load('./images/blueCap.png'),
         matcap: layerTexture,
         stencilWrite: true, // TODO: set the handle range
         stencilRef: 6,
