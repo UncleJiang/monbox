@@ -36,7 +36,7 @@ const testObj = () => {
 
 
     const particleCount = 30
-    const particleTexture = textureLoader.load('/images/glitter.png')
+    const particleTexture = textureLoader.load('./images/glitter.png')
     const particlePositionArr1 = new Float32Array(particleCount * 3)
     for (let i = 0; i < particleCount * 3; i++) {
         particlePositionArr1[i] = (i % 3 == 1)

@@ -38,7 +38,7 @@ const testObj = () => {
      * willow leaf
      */
     const leafGeometry = new THREE.PlaneGeometry(3, 5)
-    const leafTexture = textureLoader.load('/images/leaf1.png')
+    const leafTexture = textureLoader.load('./images/leaf1.png')
     const leafMaterial = new THREE.MeshBasicMaterial({
         color: '#7fa',
         map: leafTexture,
@@ -64,7 +64,7 @@ const testObj = () => {
     leafMesh1.instanceMatrix.needsUpdate = true
     group.add(leafMesh1)
 
-    const leafTexture2 = textureLoader.load('/images/leaf2.png')
+    const leafTexture2 = textureLoader.load('./images/leaf2.png')
     const leafMaterial2 = new THREE.MeshBasicMaterial({
         color: '#afc',
         map: leafTexture2,
@@ -93,7 +93,7 @@ const testObj = () => {
      */
 
     const particleCount = 8
-    const particleTexture = textureLoader.load('/images/flower1.png')
+    const particleTexture = textureLoader.load('./images/flower1.png')
     const particlePositionArr = new Float32Array(particleCount * 3)
     for (let i = 0; i < particleCount * 3; i++) {
         particlePositionArr[i * 3] = (Math.random() - 0.8) * 20 // axis x

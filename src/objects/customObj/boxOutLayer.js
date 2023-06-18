@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { textureLoader } from '../../textures/textureHandler'
 
-export const layerTexture = textureLoader.load('/images/metalCap.png') // 金属质感
+export const layerTexture = textureLoader.load('./images/metalCap.png') // 金属质感
 
 const boxOutLayer = () => {
 

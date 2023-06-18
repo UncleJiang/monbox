@@ -36,7 +36,7 @@ const testObj = () => {
 
 
     const particleCount = 10
-    const particleTexture = textureLoader.load('/images/bubble.png')
+    const particleTexture = textureLoader.load('./images/bubble.png')
     const particlePositionArr1 = new Float32Array(particleCount * 3)
     for (let i = 0; i < particleCount * 3; i++) {
         particlePositionArr1[i] = (i % 3 == 1)

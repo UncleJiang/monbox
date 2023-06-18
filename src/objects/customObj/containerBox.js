@@ -12,7 +12,7 @@ const containerBox = () => {
 
     const sideMtl1 = new THREE.MeshBasicMaterial({ // perfume1 pink case
         color: '#fdd',
-        map: textureLoader.load('/images/pinkBg.jpg'),
+        map: textureLoader.load('./images/pinkBg.jpg'),
         // transparent: true,
         // opacity: 0.4,
         stencilWrite: true,
@@ -26,7 +26,7 @@ const containerBox = () => {
 
     const sideMtl2 = new THREE.MeshBasicMaterial({ // perfume2 blue case
         // color: '#7d7',
-        map: textureLoader.load('/images/caustics.jpeg'),
+        map: textureLoader.load('./images/caustics.jpeg'),
         // transparent: true,
         // opacity: 0.4,
         stencilWrite: true,
@@ -106,7 +106,7 @@ const containerBox = () => {
 
     const sideMtl3 = new THREE.MeshBasicMaterial({ // perfume3 amber case
         // color: '#77d',
-        map: textureLoader.load('/images/glitterBg2.jpeg'),
+        map: textureLoader.load('./images/glitterBg2.jpeg'),
         // transparent: true,
         // opacity: 0.4,
         stencilWrite: true,
