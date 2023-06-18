@@ -6,6 +6,8 @@ const commonParams = {
         width: window.innerWidth,
         height: window.innerHeight
     },
+    controlMode: 1, // 1: handle mode; 0: orbitControl mode
+    currSectionId: 'Ocean',
 }
 
 

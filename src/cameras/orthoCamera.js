@@ -78,10 +78,10 @@ const orthoCamera = () => {
 
     // control
     // TODO: add a toggle feature
-    // const orbitControl = new OrbitControls(camera, basicSetting.canvas)
-    // orbitControl.update()
+    const orbitControl = new OrbitControls(camera, basicSetting.canvas)
+    orbitControl.update()
 
-    // camera.bindedControl = orbitControl
+    camera.bindedControl = orbitControl
 
     return camera
 }

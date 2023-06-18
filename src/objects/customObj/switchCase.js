@@ -12,11 +12,11 @@ import testobj3 from "./testobj3"
 
 import { CustomEase } from "gsap/CustomEase"
 import productText from "./productText"
+import commonParams from "../../common"
 
 gsap.registerPlugin(CustomEase)
 
-const switchCase = () => {
-
+const createGroups = () => {
     const { scene, renderer } = basicSetting
 
     const { mesh: handleGroup1, setVerticalRotateAxis: setGroup1Axis} = new HandleGroup('handleGroup-April')
@@ -43,6 +43,45 @@ const switchCase = () => {
     setGroup2Axis()
     setGroup3Axis()
 
+    return {
+        April: handleGroup1,
+        Ocean: handleGroup2,
+        Amber: handleGroup3
+    }
+}
+
+export const handleGroups = createGroups()
+
+const switchCase = () => {
+
+    // const { scene, renderer } = basicSetting
+
+    // const { mesh: handleGroup1, setVerticalRotateAxis: setGroup1Axis} = new HandleGroup('handleGroup-April')
+    // const { mesh: handleGroup2, setVerticalRotateAxis: setGroup2Axis} = new HandleGroup('handleGroup-Ocean')
+    // const { mesh: handleGroup3, setVerticalRotateAxis: setGroup3Axis} = new HandleGroup('handleGroup-Amber')
+    // handleGroup1.visible = false
+    // handleGroup2.visible = false
+    // handleGroup3.visible = false
+
+    // // position each group
+    // handleGroup1.rotateZ(- Math.PI * 0.9)
+    // handleGroup1.rotateX(Math.PI * 0.2)
+
+    // handleGroup2.rotateZ(- Math.PI * 0.25)
+
+    // handleGroup3.rotateZ(Math.PI * 0.44)
+
+    // scene.add(handleGroup1)
+    // scene.add(handleGroup2)
+    // scene.add(handleGroup3)
+
+    // // set vertical moving based axis for each group
+    // setGroup1Axis()
+    // setGroup2Axis()
+    // setGroup3Axis()
+
+    const { April: handleGroup1, Ocean: handleGroup2, Amber: handleGroup3 } = handleGroups
+    const { scene, renderer } = basicSetting
 
     let currHandleGroup = handleGroup1
 
@@ -140,9 +179,12 @@ const switchCase = () => {
 
     const caseOnchange = (selectedCase) => {
         const selectedCaseConfig = config[selectedCase]
-        currHandleGroup.visible = false
+        // currHandleGroup.visible = false
+        handleGroup1.visible = false
+        handleGroup2.visible = false
+        handleGroup3.visible = false
         currHandleGroup = selectedCaseConfig.handleGroup
-        currHandleGroup.visible = true
+        currHandleGroup.visible = (true && !!commonParams.controlMode)
         // transformControl.attach(currHandleGroup)
         // perfume = selectedCaseConfig.perfumeObj.mesh.getObjectByName('perfume')
         const perfumes = []
@@ -164,17 +206,25 @@ const switchCase = () => {
     }
 
     const markerIcons = document.querySelectorAll('#marker-group svg')
-    let currSectionId = 'April'
+    
+    // initial state
+    markerIcons.item(1).classList.add('blue')
+    // let commonParams.currSectionId = 'Ocean' // April
+    // let { commonParams.currSectionId } = commonParams
+    commonParams.currSectionId = 'Ocean'
+    caseOnchange(commonParams.currSectionId)
+
+
     markerIcons.forEach((icon) => {
         icon.addEventListener('click', () => {
-            if (currSectionId !== icon.id) {
+            if (commonParams.currSectionId !== icon.id) {
                 markerIcons.forEach((icon)=> {
                     icon.classList.remove('blue')
                 })
                 icon.classList.add('blue')
-                currSectionId = icon.id
+                commonParams.currSectionId = icon.id
 
-                caseOnchange(currSectionId)
+                caseOnchange(commonParams.currSectionId)
             }
         })
     })

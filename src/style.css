@@ -66,10 +66,12 @@ html {
 }
 
 #marker-group {
-    margin-top: 80px;
+    float: left;
     /* padding-top: 20px;
     padding-bottom: 20px; */
-    width: 12vw;
+    margin-right: 30px;
+    margin-top: 30px;
+    width: 200px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -90,4 +92,29 @@ html {
     background-color: #777;
 }
 
+#view-toggle {
+    float: left;
+    /* padding-top: 20px;
+    padding-bottom: 20px; */
+    margin-top: 30px;
+    width: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
+
+#view-toggle .icon-group {
+    position: relative;
+}
+
+#view-toggle .icon-border {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    transform: translate(-4px, -4px);
+    visibility: hidden;
+}
+.icon-border > path {
+    fill: #4ea4f7;
+}

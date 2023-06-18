@@ -4,6 +4,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader'
 import basicSetting from '../../basicScene'
 import orthoCamera from '../../cameras/orthoCamera'
+import switchCase from './switchCase'
 import testobj from './testobj'
 import testobj2 from './testobj2'
 import testobj3 from './testobj3'
@@ -135,6 +136,7 @@ const contentObjs = () => {
             },
             onComplete: () => {
                 // console.log('gsap complete')
+                switchCase()
             }
         })
     }

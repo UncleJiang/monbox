@@ -93,7 +93,7 @@ function HandleGroup (name) {
         // map: textureLoader.load('/images/handleIndicator.jpg'), //分辨率不高，效果不好
         // matcap: textureLoader.load('/images/blueCap.png'),
         matcap: layerTexture,
-        // stencilWrite: true,
+        stencilWrite: true, // TODO: set the handle range
         stencilRef: 6,
         stencilFunc: THREE.EqualStencilFunc,
         stencilFail: THREE.KeepStencilOp,

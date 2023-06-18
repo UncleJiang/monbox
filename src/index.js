@@ -12,6 +12,7 @@ import getCamera from './cameras/cameraHandler'
 import switchCase from './objects/customObj/switchCase'
 import eventHandler from './eventHandler'
 import { enableHelper } from './utils/coorHelper'
+import switchControl from './objects/customObj/switchControl'
 
 commonPanel()
 eventHandler()
@@ -32,7 +33,8 @@ const {
 // scene.add(transformControl)
 
 
-const onCaseChange = switchCase().onMeshChange
+// const onCaseChange = switchCase().onMeshChange
+switchControl()
 
 console.log('index scene: ', scene)
 
@@ -58,7 +60,7 @@ const anim = () => {
     objectsOnChange(elapsedTime, deltaTime)
     lightsOnChange()
 
-    onCaseChange()
+    // onCaseChange()
 
 }
 
