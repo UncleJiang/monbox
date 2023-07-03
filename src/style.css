@@ -1,10 +1,15 @@
-html {
+body {
     /* background: #af5dd8; */
-    background-image: url('/static/images/bg6.jpeg');
-    background-size: cover;
+    width: auto;
+    height: 100vh;
+    /* background-image: url('/static/images/bg6.jpeg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%; */
+    background-color: #1e1e1e;
     margin: 0;
     padding: 0;
     cursor: none;
+    /* min-width: 760px; */
 }
 
 .webgl {
@@ -14,6 +19,10 @@ html {
     outline: none;
     margin: 0;
     padding: 0;
+    background-image: url('/static/images/bg6.jpeg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
 }
 
 .cursor {
@@ -117,4 +126,90 @@ html {
 }
 .icon-border > path {
     fill: #4ea4f7;
+}
+
+
+@media screen and (min-width: 760px) and (max-width: 1200px) {
+    .webgl {
+        position: fixed;
+        top: 0;
+        left: 20vw;
+        outline: none;
+        margin: 0;
+        padding: 0;
+        background-size: cover;
+    }
+
+    #container {
+        position: fixed;
+        z-index: 10;
+        width: 100vw;
+
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: space-around;
+    }
+
+    #section-l {
+        box-sizing: border-box;
+        display: block;
+    
+        width: 40vw;
+        height: 50vh;
+        float: left;
+        overflow: scroll;
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+
+        color: #fcfcfc;
+        padding: 20px;
+        padding-left: 10px;
+    }
+
+    #section-l::-webkit-scrollbar {
+        display: none;
+    }
+
+    #section-r {
+        box-sizing: border-box;
+    
+        width: 40vw;
+        /* float: left; */
+    
+        padding: 20px;
+        color: #fcfcfc;
+        background-color: transparent;
+        pointer-events: all;
+
+        text-align: right;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    .webgl {
+        background-size: cover;
+    }
+    #section-l {
+        visibility: hidden;
+    }
+
+    #section-r {
+        box-sizing: border-box;
+    
+        width: 70vw;
+        float: right;
+
+        text-align: right;
+        color: #fcfcfc;
+        font-size: 12px;
+        padding-top: 0vh;
+        padding-right: 20px;
+        background-color: transparent;
+        pointer-events: all;
+    }
+
+    #control-panel {
+        float: right;
+    }
 }
